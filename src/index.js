@@ -33,3 +33,5 @@ console.log(myCategory);
 //getAllCategories()
 //editCategory()
 //deleteCategory()
+
+//Copy this design? https://lakeebs.github.io/taskr/
