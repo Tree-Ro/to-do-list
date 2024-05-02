@@ -15,8 +15,4 @@ class Item {
   }
 }
 
-//{title:str, description:str, dueDate:new Date, priority:1-5, type:checklist vs Notes ????,}
-//getCategoryItems(category.title)
-//markItemCompleted()
-
 export default Item;
