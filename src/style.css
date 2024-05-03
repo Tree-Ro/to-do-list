@@ -1,0 +1,96 @@
+:root {
+  --accentColor: #ff3d2a;
+  --bgColor: #0f172a;
+  --borderColor: #2c3750;
+  --sidebarColor: #090e1a;
+}
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  height: 100%;
+  color: white;
+}
+
+body {
+  height: 100%;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: 275px 1fr;
+}
+
+#side-bar {
+  width: 100%;
+  background-color: var(--sidebarColor);
+}
+
+#page-wrapper {
+  display: grid;
+  background-color: var(--bgColor);
+
+  grid-template-columns: 1fr 5fr 1fr;
+}
+
+#tabWrapper {
+  grid-column: 2/3;
+  width: 100%;
+
+  display: grid;
+  grid-template-rows: 150px 1fr;
+}
+
+#tabHeader {
+  display: grid;
+
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+
+  border-bottom: 2px solid var(--borderColor);
+}
+#tabHeader h2 {
+  grid-row: 3/4;
+  white-space: nowrap;
+  justify-self: start;
+}
+#tabHeader #addTaskBtn {
+  grid-row: 3/4;
+  grid-column: 3/4;
+  justify-self: end;
+
+  background: none;
+  border: none;
+  color: white;
+
+  font-weight: bold;
+  font-size: 18px;
+  
+  width: min-content;
+  white-space: nowrap;
+}
+#tabHeader #addTaskBtn:hover {
+  color: var(--accentColor);
+}
+#tabHeader #addTaskBtn:active {
+  color: #ff796c;
+  transform: scale(0.95);
+}
+
+#listWrapper {
+  display: grid;
+  grid-auto-flow: row;
+  margin-top: 15px;
+
+  grid-template-rows: repeat(auto-fill, 110px);
+}
+#listWrapper > div {
+  border-bottom: 2px solid var(--borderColor);
+  padding-left: 20px;
+  padding-right: 20px;
+}

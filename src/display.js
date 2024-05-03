@@ -44,20 +44,24 @@ class Display {
     addTaskBtn.textContent = '+ Add Task';
     addTaskBtn.setAttribute('id', 'addTaskBtn');
 
+    const tabHeader = document.createElement('div');
+    tabHeader.setAttribute('id', 'tabHeader');
+
     const listWrapper = document.createElement('div');
     listWrapper.setAttribute('id', 'listWrapper');
 
-    tabWrapper.appendChild(tabTitle);
-    tabWrapper.appendChild(addTaskBtn);
+    tabHeader.appendChild(tabTitle);
+    tabHeader.appendChild(addTaskBtn);
+    tabWrapper.appendChild(tabHeader);
     tabWrapper.appendChild(listWrapper);
-    this.appendItems(category, tabWrapper);
+    this.appendItems(category, listWrapper);
 
     return tabWrapper;
   }
 
   static appendTabWrapper(category) {
     const wrapper = this.createTabWrapper(category);
-    document.querySelector('body').appendChild(wrapper);
+    document.querySelector('#page-wrapper').appendChild(wrapper);
   }
 
   static appendItems(category, parentNode) {

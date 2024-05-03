@@ -1,3 +1,4 @@
+import './style.css';
 import Item from './item.js';
 import Category from './category.js';
 import Display from './display.js';
