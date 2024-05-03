@@ -33,6 +33,19 @@ body {
 #side-bar h1 {
   border-bottom: 3px solid var(--borderColor);
 }
+#side-bar #navContainer {
+  margin-top: 25px;
+
+  display: grid;
+  grid-gap: 10px;
+
+}
+#side-bar #navContainer button {
+  font-size: larger;
+  background: none;
+  color: white;
+  border: none;
+}
 
 #page-wrapper {
   display: grid;

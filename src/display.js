@@ -81,28 +81,32 @@ class Display {
   }
 
   static createSidebar(localStorage) {
-    const allTasksBtn = document.createElement('h2');
+    const allTasksBtn = document.createElement('button');
     allTasksBtn.textContent =
       `All Tasks` + `(` + Object.keys(ItemLogic.getAllItems()).length + `)`;
 
-    const todayTaskBtn = document.createElement('h2');
+    const todayTaskBtn = document.createElement('button');
     todayTaskBtn.textContent =
       `Today's Tasks` +
       `(` +
       Object.keys(ItemLogic.tasksDueToday()).length +
       `)`;
 
-    const overdueTaskBtn = document.createElement('h2');
+    const overdueTaskBtn = document.createElement('button');
     overdueTaskBtn.textContent =
       `Overdue Tasks` +
       `(` +
       Object.keys(ItemLogic.tasksOverdue()).length +
       `)`;
 
-    allTasksBtn.appendChild(todayTaskBtn);
-    allTasksBtn.appendChild(overdueTaskBtn);
+    const navContainer = document.createElement('div');
+    navContainer.setAttribute('id', 'navContainer');
 
-    return allTasksBtn;
+    navContainer.appendChild(todayTaskBtn);
+    navContainer.appendChild(overdueTaskBtn);
+    navContainer.appendChild(allTasksBtn);
+
+    return navContainer;
   }
 
   static appendSidebar(sidebarContent, parentNode) {
