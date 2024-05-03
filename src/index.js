@@ -1,5 +1,6 @@
 import Item from './item.js';
 import Category from './category.js';
+import Display from './display.js';
 
 const myItem = new Item(
   'Groceries',
@@ -8,25 +9,20 @@ const myItem = new Item(
   2,
   'checklist'
 );
-console.log(myItem);
-myItem.edit({ title: 'newTestTitle', desc: '' });
-console.log(myItem);
 
 const myCategory = new Category('Tasks', 1);
-console.log(myCategory);
 myCategory.addItem(myItem);
-myCategory.edit({ title: 'Groceries', prio: 4 });
-console.log(myCategory);
 
 myCategory.addItem(
-  new Item(
-    'Apple-things',
-    'Rosemary marinated apples!',
-    Date.now(),
-    'checklist'
-  )
+  new Item('Apple-things', 'Rosemary marinated apples!', Date.now(), '1')
 );
 console.log(myCategory);
+
+console.log(
+  Display.createTodoItem(
+    new Item('Apple-things', 'Rosemary marinated apples!', Date.now(), '5')
+  )
+);
 //Check if user has localstorage todoList
 //  if so Load localstorage todoList
 //else render home page
@@ -35,7 +31,7 @@ console.log(myCategory);
 //Create projects through classes
 //Store items in categories
 //      item contains:
-//          {title:str, description:str, dueDate:new Date, priority:1-5, type:checklist vs Notes ????,}
+//          {title:str, description:str, dueDate:new Date, priority:1-5}
 //      category contains:
 //          {title:str, items:{}, priority:1-5,}
 

@@ -1,11 +1,16 @@
+import { intlFormatDistance } from 'date-fns';
+
 class Item {
-  constructor(title, desc, dueDate, prio, type) {
+  constructor(title, desc, dueDate, prio) {
     this.title = title;
     this.desc = desc;
-    this.dueDate = new Date(dueDate); //Probably needs a fix https://date-fns.org/
+    this.dueDate = dueDate;
     this.prio = prio;
-    this.type = type;
     this.completed = false;
+  }
+
+  getFormattedDueDate() {
+    return intlFormatDistance(Date.now(), this.dueDate);
   }
 
   edit(newObj) {
