@@ -17,7 +17,7 @@ myCategory.addItem(
 myCategory.addItem(new Item('Pear-things', 'Pear Jam!', 1714729101683, '1'));
 console.log(myCategory);
 
-Display.appendItems(myCategory, document.querySelector('body'));
+Display.appendTabWrapper(myCategory);
 
 console.log(myCategory.title + '(' + Object.keys(myCategory).length + ')');
 console.log(Display.createTabWrapper(myCategory));

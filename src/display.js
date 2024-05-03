@@ -50,12 +50,14 @@ class Display {
     tabWrapper.appendChild(tabTitle);
     tabWrapper.appendChild(addTaskBtn);
     tabWrapper.appendChild(listWrapper);
+    this.appendItems(category, tabWrapper);
 
     return tabWrapper;
   }
 
   static appendTabWrapper(category) {
-    this.createTabWrapper(category);
+    const wrapper = this.createTabWrapper(category);
+    document.querySelector('body').appendChild(wrapper);
   }
 
   static appendItems(category, parentNode) {
