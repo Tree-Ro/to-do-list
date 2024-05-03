@@ -19,7 +19,7 @@ class Display {
 
       if (key === 'dueDate') {
         itemPart.textContent = this.getFormattedDueDate(itemObj);
-      } else {
+      } else if (key !== 'completed' && key !== 'prio') {
         itemPart.textContent = value;
       }
 

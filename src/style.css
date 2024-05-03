@@ -85,12 +85,48 @@ body {
 #listWrapper {
   display: grid;
   grid-auto-flow: row;
-  margin-top: 15px;
 
   grid-template-rows: repeat(auto-fill, 110px);
+
 }
-#listWrapper > div {
-  border-bottom: 2px solid var(--borderColor);
-  padding-left: 20px;
+#listWrapper .item-wrapper {
+  border-bottom: 1px solid var(--borderColor);
   padding-right: 20px;
+  align-self: center;
+  height: 100%;
+
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  grid-template-rows: 1fr 3fr;
+
+  cursor: pointer;
+}
+#listWrapper .item-wrapper .title {
+  grid-column: 2/3;
+  font-size: larger;
+  font-weight: bold;
+  font-style: italic;
+}
+#listWrapper .item-wrapper .desc {
+  grid-column: 2/3;
+  white-space: nowrap;
+}
+#listWrapper .item-wrapper .dueDate {
+  grid-column: 3/4;
+}
+#listWrapper .item-wrapper .completed {
+  grid-row: 1/2;
+  place-self: center;
+
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
+  border-radius: 100%;
+  border: 2px solid #ff3d2a;
+
+  background-color: #ff15003f;
+}
+#listWrapper .item-wrapper .completed:active {
+  transform: translateY(2px);
 }
