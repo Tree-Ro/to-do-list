@@ -3,12 +3,18 @@ class Category {
     this.title = title;
     this.prio = prio;
     this.items = {};
+    this.storeCurrent();
   }
 
   addItem(Item) {
     if (typeof Item === 'object') {
       this.items[Item.title] = Item;
+      this.storeCurrent();
     }
+  }
+
+  storeCurrent() {
+    localStorage[this.title] = JSON.stringify(this);
   }
 
   edit(newObj) {
@@ -17,6 +23,11 @@ class Category {
         this[key] = value;
       }
     });
+    this.storeCurrent();
+  }
+
+  deleteCategory() {
+    delete localStorage[this.title];
   }
 }
 

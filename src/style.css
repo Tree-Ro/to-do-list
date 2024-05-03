@@ -28,6 +28,10 @@ body {
 #side-bar {
   width: 100%;
   background-color: var(--sidebarColor);
+  padding: 30px;
+}
+#side-bar h1 {
+  border-bottom: 3px solid var(--borderColor);
 }
 
 #page-wrapper {
@@ -52,7 +56,7 @@ body {
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
 
-  border-bottom: 2px solid var(--borderColor);
+  border-bottom: 1px solid var(--borderColor);
 }
 #tabHeader h2 {
   grid-row: 3/4;
@@ -94,6 +98,7 @@ body {
   padding-right: 20px;
   align-self: center;
   height: 100%;
+  padding-top: 15px;
 
   display: grid;
   grid-template-columns: 40px 1fr 40px;

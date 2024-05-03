@@ -1,5 +1,3 @@
-import { intlFormatDistance } from 'date-fns';
-
 class Item {
   constructor(title, desc, dueDate, prio) {
     this.title = title;
@@ -7,10 +5,6 @@ class Item {
     this.dueDate = dueDate;
     this.prio = prio;
     this.completed = false;
-  }
-
-  getFormattedDueDate() {
-    return intlFormatDistance(Date.now(), this.dueDate);
   }
 
   edit(newObj) {

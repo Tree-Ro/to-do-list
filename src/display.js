@@ -31,6 +31,10 @@ class Display {
     return itemWrapper;
   }
 
+  static getFormattedDueDate(item) {
+    return intlFormatDistance(Date.now(), item.dueDate);
+  }
+
   static createTabWrapper(category) {
     const tabWrapper = document.createElement('div');
     tabWrapper.setAttribute('id', 'tabWrapper');
@@ -73,9 +77,9 @@ class Display {
     }
   }
 
-  static getFormattedDueDate(item) {
-    return intlFormatDistance(Date.now(), item.dueDate);
-  }
+  static createSidebar() {}
+
+  static appendSidebar() {}
 }
 
 export default Display;
