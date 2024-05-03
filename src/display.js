@@ -1,4 +1,6 @@
 import { intlFormatDistance } from 'date-fns';
+import { isBefore } from 'date-fns';
+import { isToday } from 'date-fns';
 
 class Display {
   static render() {
@@ -66,6 +68,7 @@ class Display {
   static appendTabWrapper(category) {
     const wrapper = this.createTabWrapper(category);
     document.querySelector('#page-wrapper').appendChild(wrapper);
+    console.log(ItemLogic.tasksOverdue().length);
   }
 
   static appendItems(category, parentNode) {
@@ -77,9 +80,75 @@ class Display {
     }
   }
 
-  static createSidebar() {}
+  static createSidebar(localStorage) {
+    const allTasksBtn = document.createElement('h2');
+    allTasksBtn.textContent =
+      `All Tasks` + `(` + Object.keys(ItemLogic.getAllItems()).length + `)`;
 
-  static appendSidebar() {}
+    const todayTaskBtn = document.createElement('h2');
+    todayTaskBtn.textContent =
+      `Today's Tasks` +
+      `(` +
+      Object.keys(ItemLogic.tasksDueToday()).length +
+      `)`;
+
+    const overdueTaskBtn = document.createElement('h2');
+    overdueTaskBtn.textContent =
+      `Overdue Tasks` +
+      `(` +
+      Object.keys(ItemLogic.tasksOverdue()).length +
+      `)`;
+
+    allTasksBtn.appendChild(todayTaskBtn);
+    allTasksBtn.appendChild(overdueTaskBtn);
+
+    return allTasksBtn;
+  }
+
+  static appendSidebar(sidebarContent, parentNode) {
+    parentNode.appendChild(sidebarContent);
+  }
 }
 
+class ItemLogic {
+  static getAllItems() {
+    let allItems = {};
+    for (const [key, value] of Object.entries(localStorage)) {
+      let itemObject = Object.values(JSON.parse(value));
+      for (let item in itemObject[2]) {
+        allItems[item] = itemObject[2][item];
+      }
+
+      return allItems;
+    }
+  }
+
+  static tasksOverdue() {
+    let tasksOverdue = {};
+    for (const [key, value] of Object.entries(localStorage)) {
+      let itemObject = Object.values(JSON.parse(value));
+      for (let item in itemObject[2]) {
+        if (isBefore(Date.now(), itemObject[2][item].dueDate)) {
+          tasksOverdue[item] = itemObject[2][item];
+        }
+      }
+
+      return tasksOverdue;
+    }
+  }
+
+  static tasksDueToday() {
+    let tasksDueToday = {};
+    for (const [key, value] of Object.entries(localStorage)) {
+      let itemObject = Object.values(JSON.parse(value));
+      for (let item in itemObject[2]) {
+        if (isToday(itemObject[2][item].dueDate, Date.now())) {
+          tasksDueToday[item] = itemObject[2][item];
+        }
+      }
+
+      return tasksDueToday;
+    }
+  }
+}
 export default Display;
