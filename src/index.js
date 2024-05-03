@@ -17,6 +17,16 @@ console.log(myCategory);
 myCategory.addItem(myItem);
 myCategory.edit({ title: 'Groceries', prio: 4 });
 console.log(myCategory);
+
+myCategory.addItem(
+  new Item(
+    'Apple-things',
+    'Rosemary marinated apples!',
+    Date.now(),
+    'checklist'
+  )
+);
+console.log(myCategory);
 //Check if user has localstorage todoList
 //  if so Load localstorage todoList
 //else render home page

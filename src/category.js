@@ -7,7 +7,7 @@ class Category {
 
   addItem(Item) {
     if (typeof Item === 'object') {
-      this.items = Item;
+      this.items[Item.title] = Item;
     }
   }
 
