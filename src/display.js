@@ -43,7 +43,7 @@ class Display {
 
     const tabTitle = document.createElement('h2');
     tabTitle.textContent = [
-      category.title + '(' + Object.keys(category).length + ')',
+      category.title + '(' + Object.keys(category.items).length + ')',
     ];
 
     const addTaskBtn = document.createElement('button');
@@ -68,7 +68,6 @@ class Display {
   static appendTabWrapper(category) {
     const wrapper = this.createTabWrapper(category);
     document.querySelector('#page-wrapper').appendChild(wrapper);
-    console.log(ItemLogic.tasksOverdue().length);
   }
 
   static appendItems(category, parentNode) {
@@ -83,20 +82,23 @@ class Display {
   static createSidebar(localStorage) {
     const allTasksBtn = document.createElement('button');
     allTasksBtn.textContent =
-      `All Tasks` + `(` + Object.keys(ItemLogic.getAllItems()).length + `)`;
+      `All Tasks` +
+      `(` +
+      Object.keys(ItemLogic.getAllTasks().items).length +
+      `)`;
 
     const todayTaskBtn = document.createElement('button');
     todayTaskBtn.textContent =
       `Today's Tasks` +
       `(` +
-      Object.keys(ItemLogic.tasksDueToday()).length +
+      Object.keys(ItemLogic.tasksDueToday().items).length +
       `)`;
 
     const overdueTaskBtn = document.createElement('button');
     overdueTaskBtn.textContent =
       `Overdue Tasks` +
       `(` +
-      Object.keys(ItemLogic.tasksOverdue()).length +
+      Object.keys(ItemLogic.tasksOverdue().items).length +
       `)`;
 
     const navContainer = document.createElement('div');
@@ -105,6 +107,9 @@ class Display {
     navContainer.appendChild(todayTaskBtn);
     navContainer.appendChild(overdueTaskBtn);
     navContainer.appendChild(allTasksBtn);
+
+    const categoryContainer = document.createElement('div');
+    categoryContainer.setAttribute('id', 'categoryContainer');
 
     return navContainer;
   }
@@ -115,44 +120,51 @@ class Display {
 }
 
 class ItemLogic {
-  static getAllItems() {
-    let allItems = {};
-    for (const [key, value] of Object.entries(localStorage)) {
-      let itemObject = Object.values(JSON.parse(value));
-      for (let item in itemObject[2]) {
-        allItems[item] = itemObject[2][item];
+  static getAllTasks() {
+    let allItems = { title: 'All Tasks', items: {} };
+    for (let i = 0; i < localStorage.length; ++i) {
+      const currentCategory = this.getCategorybyIndex(i);
+      for (let item in currentCategory.items) {
+        allItems.items[item] = currentCategory.items[item];
       }
-
-      return allItems;
     }
+    return allItems;
   }
 
   static tasksOverdue() {
-    let tasksOverdue = {};
-    for (const [key, value] of Object.entries(localStorage)) {
-      let itemObject = Object.values(JSON.parse(value));
-      for (let item in itemObject[2]) {
-        if (isBefore(Date.now(), itemObject[2][item].dueDate)) {
-          tasksOverdue[item] = itemObject[2][item];
+    let tasksOverdue = { title: 'Overdue Tasks', items: {} };
+    for (let i = 0; i < localStorage.length; ++i) {
+      const currentCategory = this.getCategorybyIndex(i);
+      for (let item in currentCategory.items) {
+        if (isBefore(currentCategory.items[item].dueDate, Date.now() + 10)) {
+          // +10 to create consistancy in when they are overdue
+          tasksOverdue.items[item] = currentCategory.items[item];
         }
       }
-
-      return tasksOverdue;
     }
+    return tasksOverdue;
   }
 
   static tasksDueToday() {
-    let tasksDueToday = {};
-    for (const [key, value] of Object.entries(localStorage)) {
-      let itemObject = Object.values(JSON.parse(value));
-      for (let item in itemObject[2]) {
-        if (isToday(itemObject[2][item].dueDate, Date.now())) {
-          tasksDueToday[item] = itemObject[2][item];
+    let tasksDueToday = { title: "Today's Tasks", items: {} };
+    for (let i = 0; i < localStorage.length; ++i) {
+      const currentCategory = this.getCategorybyIndex(i);
+      for (let item in currentCategory.items) {
+        if (isToday(currentCategory.items[item].dueDate)) {
+          tasksDueToday.items[item] = currentCategory.items[item];
         }
       }
-
-      return tasksDueToday;
     }
+    return tasksDueToday;
+  }
+
+  static getCategorybyIndex(index) {
+    const categoryTitle = localStorage.key(index);
+    const category = localStorage.getItem(categoryTitle);
+
+    return JSON.parse(category);
   }
 }
+
+export { ItemLogic };
 export default Display;
