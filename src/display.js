@@ -4,7 +4,10 @@ import { isToday } from 'date-fns';
 
 class Display {
   static render() {
-    //all rendering logic for the full page
+    this.appendSidebar(
+      this.createSidebar(),
+      document.querySelector('#side-bar')
+    );
   }
 
   static clearPage() {
@@ -50,7 +53,7 @@ class Display {
 
     const tabTitle = document.createElement('h2');
     tabTitle.textContent = [
-      category.title + '(' + Object.keys(category.items).length + ')',
+      category.title + ' (' + Object.keys(category.items).length + ')',
     ];
 
     const addTaskBtn = document.createElement('button');
@@ -87,10 +90,24 @@ class Display {
     }
   }
 
-  static createSidebar(localStorage) {
+  static createCategoryButton(localStorageIndex) {
+    const category = ItemLogic.getCategorybyIndex(localStorageIndex);
+
+    const categoryBtn = document.createElement('button');
+    categoryBtn.textContent = category.title;
+    categoryBtn.addEventListener('click', (event) => {
+      this.appendTabWrapper(
+        ItemLogic.getCategorybyName(event.target.textContent)
+      );
+    });
+
+    return categoryBtn;
+  }
+
+  static createSidebar() {
     const allTasksBtn = document.createElement('button');
     allTasksBtn.textContent =
-      `All Tasks` +
+      `All Tasks ` +
       `(` +
       Object.keys(ItemLogic.getAllTasks().items).length +
       `)`;
@@ -100,7 +117,7 @@ class Display {
 
     const todayTaskBtn = document.createElement('button');
     todayTaskBtn.textContent =
-      `Today's Tasks` +
+      `Today's Tasks ` +
       `(` +
       Object.keys(ItemLogic.tasksDueToday().items).length +
       `)`;
@@ -110,7 +127,7 @@ class Display {
 
     const overdueTaskBtn = document.createElement('button');
     overdueTaskBtn.textContent =
-      `Overdue Tasks` +
+      `Overdue Tasks ` +
       `(` +
       Object.keys(ItemLogic.tasksOverdue().items).length +
       `)`;
@@ -127,8 +144,16 @@ class Display {
 
     const categoryContainer = document.createElement('div');
     categoryContainer.setAttribute('id', 'categoryContainer');
+    for (let i = 0; i < localStorage.length; i++) {
+      const btn = this.createCategoryButton(i);
+      categoryContainer.appendChild(btn);
+    }
 
-    return navContainer;
+    const sideBarContainer = document.createElement('div');
+    sideBarContainer.appendChild(navContainer);
+    sideBarContainer.appendChild(categoryContainer);
+
+    return sideBarContainer;
   }
 
   static appendSidebar(sidebarContent, parentNode) {
@@ -181,7 +206,12 @@ class ItemLogic {
 
     return JSON.parse(category);
   }
+
+  static getCategorybyName(name) {
+    const category = localStorage[name];
+
+    return JSON.parse(category);
+  }
 }
 
-export { ItemLogic };
 export default Display;
