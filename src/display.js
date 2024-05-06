@@ -1,9 +1,10 @@
 import { intlFormatDistance } from 'date-fns';
 import { isBefore } from 'date-fns';
 import { isToday } from 'date-fns';
+import Category from './category.js';
 
 class Display {
-  static render() {
+  static render(startPage) {
     this.appendSidebar(
       this.createSidebar(),
       document.querySelector('#side-bar')
@@ -154,6 +155,33 @@ class Display {
     sideBarContainer.appendChild(categoryContainer);
 
     return sideBarContainer;
+  }
+
+  static addCreateCategoryListener() {
+    //Button
+    //Input
+  }
+  static addAddTaskListener() {
+    //Form
+    //Input Task Name (Required)
+    //Input Notes (Optional)
+    //Input type date
+    //Select priority
+    //////Option *4
+    //Select Category
+    //////buncha stuff(???)
+    //Buttons Submit/Close
+  }
+  static addEditTaskListener() {
+    //Form
+    //Input Task Name (Required)
+    //Input Notes (Optional)
+    //Input type date
+    //Checkbox priority
+    //////Options *4
+    //Select Category
+    //////buncha stuff(???)
+    //Buttons Submit/Close
   }
 
   static appendSidebar(sidebarContent, parentNode) {

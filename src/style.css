@@ -24,6 +24,9 @@ body {
   display: grid;
   grid-template-columns: 275px 1fr;
 }
+button {
+  cursor: pointer;
+}
 
 #side-bar {
   width: 100%;
@@ -33,12 +36,25 @@ body {
 #side-bar h1 {
   border-bottom: 3px solid var(--borderColor);
 }
-#side-bar #navContainer {
-  margin-top: 25px;
+#side-bar #add-task {
+  filter: invert(1);
+  color: blacK;
+  margin-top: 20px;
 
   display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 35px 1fr;
+  grid-gap: 5px;
+  align-items: center;
+}
+#side-bar img {
+  width: 30px;
+  height: auto;
+}
+#side-bar #navContainer {
+  display: grid;
   grid-gap: 10px;
-
+  justify-items: start;
 }
 #side-bar #navContainer button {
   font-size: larger;
