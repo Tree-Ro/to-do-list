@@ -7,6 +7,13 @@ class Display {
     //all rendering logic for the full page
   }
 
+  static clearPage() {
+    var parent = document.getElementById('page-wrapper');
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+  }
+
   static createTodoItem(itemObj) {
     let itemWrapper = document.createElement('div');
     itemWrapper.setAttribute('class', 'item-wrapper');
@@ -66,6 +73,7 @@ class Display {
   }
 
   static appendTabWrapper(category) {
+    this.clearPage();
     const wrapper = this.createTabWrapper(category);
     document.querySelector('#page-wrapper').appendChild(wrapper);
   }
@@ -86,6 +94,9 @@ class Display {
       `(` +
       Object.keys(ItemLogic.getAllTasks().items).length +
       `)`;
+    allTasksBtn.addEventListener('click', () => {
+      this.appendTabWrapper(ItemLogic.getAllTasks());
+    });
 
     const todayTaskBtn = document.createElement('button');
     todayTaskBtn.textContent =
@@ -93,6 +104,9 @@ class Display {
       `(` +
       Object.keys(ItemLogic.tasksDueToday().items).length +
       `)`;
+    todayTaskBtn.addEventListener('click', () => {
+      this.appendTabWrapper(ItemLogic.tasksDueToday());
+    });
 
     const overdueTaskBtn = document.createElement('button');
     overdueTaskBtn.textContent =
@@ -100,6 +114,9 @@ class Display {
       `(` +
       Object.keys(ItemLogic.tasksOverdue().items).length +
       `)`;
+    overdueTaskBtn.addEventListener('click', () => {
+      this.appendTabWrapper(ItemLogic.tasksOverdue());
+    });
 
     const navContainer = document.createElement('div');
     navContainer.setAttribute('id', 'navContainer');
