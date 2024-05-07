@@ -37,8 +37,6 @@ button {
   border-bottom: 3px solid var(--borderColor);
 }
 #side-bar #add-task {
-  filter: invert(1);
-  color: blacK;
   margin-top: 20px;
 
   display: grid;
@@ -48,6 +46,7 @@ button {
   align-items: center;
 }
 #side-bar img {
+  filter: invert(1);
   width: 30px;
   height: auto;
 }
@@ -56,11 +55,18 @@ button {
   grid-gap: 10px;
   justify-items: start;
 }
-#side-bar #navContainer button {
+#side-bar button {
   font-size: larger;
   background: none;
   color: white;
   border: none;
+}
+#side-bar #categoryContainer {
+  margin-top: 25px;
+
+  display: grid;
+  grid-gap: 10px;
+  justify-items: start;
 }
 
 #page-wrapper {
@@ -91,28 +97,6 @@ button {
   grid-row: 3/4;
   white-space: nowrap;
   justify-self: start;
-}
-#tabHeader #addTaskBtn {
-  grid-row: 3/4;
-  grid-column: 3/4;
-  justify-self: end;
-
-  background: none;
-  border: none;
-  color: white;
-
-  font-weight: bold;
-  font-size: 18px;
-  
-  width: min-content;
-  white-space: nowrap;
-}
-#tabHeader #addTaskBtn:hover {
-  color: var(--accentColor);
-}
-#tabHeader #addTaskBtn:active {
-  color: #ff796c;
-  transform: scale(0.95);
 }
 
 #listWrapper {

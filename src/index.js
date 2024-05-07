@@ -3,20 +3,17 @@ import Item from './item.js';
 import Category from './category.js';
 import Display from './display.js';
 
-const myCategory = new Category('Tasks', 1);
-myCategory.addItem(new Item('Groceries', 'Buy Cheese & Egg', Date.now(), 2));
-myCategory.addItem(
-  new Item(
-    'Apple-things',
-    'Rosemary marinated apples!',
-    Date.now() - 1000000000,
-    '1'
-  )
-);
-myCategory.addItem(new Item('Pear-things', 'Pear Jam!', 1714729101683, '1'));
+if (localStorage.length <= 0) {
+  const exampleTask = new Item(
+    'example Task!',
+    "(you can't remove this task...)",
+    Date.now(),
+    2
+  );
+  const exampleCategory = new Category('Default', { exampleTask });
+  Display.render(exampleCategory);
+} else {
+  Display.render(JSON.parse(localStorage[localStorage.key(0)]));
+}
 
-const example = new Category('nooo', 1);
-example.addItem(new Item('uff', 'e & Egg', Date.now(), 2));
-
-Display.render();
 //Copy this design? https://lakeebs.github.io/taskr/

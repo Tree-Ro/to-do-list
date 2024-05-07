@@ -1,8 +1,7 @@
 class Category {
-  constructor(title, prio) {
+  constructor(title, itemsObj) {
     this.title = title;
-    this.prio = prio;
-    this.items = {};
+    this.items = itemsObj;
     this.storeCurrent();
   }
 
@@ -11,6 +10,11 @@ class Category {
       this.items[Item.title] = Item;
       this.storeCurrent();
     }
+  }
+
+  deleteItem(Item) {
+    delete this.items[Item.title];
+    this.storeCurrent();
   }
 
   storeCurrent() {
